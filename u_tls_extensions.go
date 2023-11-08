@@ -89,6 +89,32 @@ func (e *SNIExtension) Read(b []byte) (int, error) {
 	return e.Len(), io.EOF
 }
 
+type ECHExtension struct {
+}
+
+func (e *ECHExtension) writeToUConn(uc *UConn) error {
+	return nil
+}
+
+func (e *ECHExtension) Len() int {
+	return 250
+}
+
+func (e *ECHExtension) Read(b []byte) (int, error) {
+	if len(b) < e.Len() {
+		return 0, io.ErrShortBuffer
+	}
+	// https://datatracker.ietf.org/doc/draft-ietf-tls-esni/
+	b[0] = byte(ExtensionECH >> 8)
+	b[1] = byte(ExtensionECH)
+	b[2] = 0
+	b[3] = 246
+	for i := 4; i < 246; i++ {
+		b[i] = i
+	}
+	return e.Len(), io.EOF
+}
+
 type StatusRequestExtension struct {
 }
 
