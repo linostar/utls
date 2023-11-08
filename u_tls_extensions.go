@@ -97,7 +97,7 @@ func (e *ECHExtension) writeToUConn(uc *UConn) error {
 }
 
 func (e *ECHExtension) Len() int {
-	return 250
+	return 254
 }
 
 func (e *ECHExtension) Read(b []byte) (int, error) {
@@ -108,8 +108,8 @@ func (e *ECHExtension) Read(b []byte) (int, error) {
 	b[0] = byte(ExtensionECH >> 8)
 	b[1] = byte(ExtensionECH & 0xff)
 	b[2] = 0
-	b[3] = 246
-	for i := 4; i < 246; i++ {
+	b[3] = 250
+	for i := 4; i < 250; i++ {
 		b[i] = byte(i)
 	}
 	return e.Len(), io.EOF
