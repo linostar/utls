@@ -106,11 +106,11 @@ func (e *ECHExtension) Read(b []byte) (int, error) {
 	}
 	// https://datatracker.ietf.org/doc/draft-ietf-tls-esni/
 	b[0] = byte(ExtensionECH >> 8)
-	b[1] = byte(ExtensionECH)
+	b[1] = byte(ExtensionECH & 0xff)
 	b[2] = 0
 	b[3] = 246
 	for i := 4; i < 246; i++ {
-		b[i] = i
+		b[i] = byte(i)
 	}
 	return e.Len(), io.EOF
 }
