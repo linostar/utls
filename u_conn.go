@@ -41,6 +41,32 @@ type UConn struct {
 	// algorithms, as specified in the ClientHello. This is only relevant client-side, for the
 	// server certificate. All other forms of certificate compression are unsupported.
 	certCompressionAlgs []CertCompressionAlgo
+	EchConfig           ECHConfig
+}
+
+type HpkeSymmetricCipherSuite struct {
+	KdfID  uint16
+	AeadID uint16
+}
+
+type HpkeKeyConfig struct {
+	ConfigID     uint8
+	KemID        uint16
+	PublicKey    []byte
+	CipherSuites []HpkeSymmetricCipherSuite
+}
+
+type ECHConfigContents struct {
+	KeyConfig         HpkeKeyConfig
+	MaximumNameLength uint8
+	PublicName        []byte
+	Extensions        []byte
+}
+
+type ECHConfig struct {
+	Version  uint16
+	Length   uint16
+	Contents ECHConfigContents
 }
 
 // UClient returns a new uTLS client, with behavior depending on clientHelloID.
