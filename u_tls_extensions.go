@@ -111,7 +111,14 @@ func (e *ECHExtension) Read(b []byte) (int, error) {
 	b[1] = byte(ExtensionECH & 0xff)
 	b[2] = 0
 	b[3] = 250
-	for i := 4; i < 250; i++ {
+	b[4] = 0
+	b[5] = 0
+	b[6] = 1
+	b[7] = 0
+	b[8] = 1
+	b[9] = 173
+	b[10] = 0
+	for i := 11; i < 250; i++ {
 		b[i] = byte(i)
 	}
 	return e.Len(), io.EOF
