@@ -113,7 +113,7 @@ func (e *ECHExtension) Read(b []byte) (int, error) {
 	b[8] = 1
 	b[9] = 173
 	b[10] = 0
-	for i := 11; i < 250; i++ {
+	for i := 11; i < 254; i++ {
 		b[i] = byte(i)
 	}
 	return e.Len(), io.EOF
