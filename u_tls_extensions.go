@@ -90,12 +90,7 @@ func (e *SNIExtension) Read(b []byte) (int, error) {
 }
 
 type ECHExtension struct {
-}
-
-func (e *ECHExtension) writeToUConn(uc *UConn) error {
-	uc.EchConfig.Version = ExtensionECH
-	uc.EchConfig.Length = 250
-	return nil
+	*GenericExtension
 }
 
 func (e *ECHExtension) Len() int {
